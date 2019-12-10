@@ -1,0 +1,81 @@
+body {
+    background-color: #D8AE71;
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+
+    display: grid;
+
+    grid-template-columns: 700px auto;
+    
+}
+
+.playground {
+
+    /* background-image: url("images/tic-tac-toe-bg.png");    */
+    height: 660px; 
+    width: 660px;
+    
+    grid-column: 1;
+    grid-row: 1 / 3;
+
+    display: grid;
+    grid-template-columns: 150px 150px 150px;
+    grid-template-rows: 150px 150px 150px;
+    gap: 5px;
+}
+
+.tiles {
+
+    background-color: beige;
+}
+
+.score {
+
+    grid-column: 2;
+    grid-row: 1 / 2;
+    font-size: 25px;
+
+}
+
+.choose {
+
+    grid-column: 2;
+    grid-row: 2 / 3;
+    font-size: 25px;
+
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    justify-items: center;
+}
+
+.o-mark {
+
+    background-image: url("images/tic-tac-toe-o.png");
+    height: 150px;
+    width: 150px;
+    background-size: cover;
+    background-position: center center;
+}
+
+/* overrides .x-mark */
+.x-mark {
+
+    background-image: url("images/tic-tac-toe-x.png");
+    height: 150px;
+    width: 150px;
+    background-size: cover;
+    background-position: center center;
+}
+
+.comment {
+
+    background-color: #453823;
+    height: 70px;
+    color: aliceblue;
+    font-size: 25px;
+}
