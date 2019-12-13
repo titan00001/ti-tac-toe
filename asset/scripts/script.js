@@ -24,7 +24,7 @@ function setChoice(ch){
 
     window.choice = ch;
     console.log(window.choice)
-    if(ch == 1) display("<p>Player 1 : X <br/> player 2 : O </p>");
+    if(ch == 1)     display("<p>Player 1 : X <br/> player 2 : O </p>");
 
     else if(ch == 0)    display("<p>Player 1 : O <br/> player 2 : X </p>");
 
@@ -34,7 +34,7 @@ function setChoice(ch){
 
 function choose(){
 
-    document.addEventListener('click', function(event) {
+    document.querySelector(".choose").addEventListener('click', function(event) {
  
         if(event.target.className == "x-mark"){
             setChoice(1)
@@ -70,7 +70,7 @@ function updatePlayground(choice, tileID){
     }
 
     else {
-        display("<p> No coin is chosen<br> Choose one of the coin to continue </p>");
+        display("<p> No tile is chosen<br> Choose one of the tile to continue </p>");
 
     }
 
@@ -88,7 +88,7 @@ function updatePlayground(choice, tileID){
 function chooseTile(){
 
 
-    document.addEventListener('click', function(e){
+    document.querySelector(".playground").addEventListener('click', function(e){
 
         if(e.target.className != 'tiles'){
             console.log("choose a tile");
