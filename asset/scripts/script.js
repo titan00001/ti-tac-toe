@@ -1,10 +1,12 @@
-import {judge} from "./judge.js"
+import {judge} from "./judge.js";
+import {getBestMove} from "./opponent.js";
 
 
 // var x = test("Sahil")
 // console.log(x);
 
 window.choice = -1;
+window.opponentChoice = -1;
 window.conf = [-1, -1, -1, -1, -1, -1, -1, -1, -1];
 
 var comment = document.querySelector(".comment");
@@ -23,6 +25,7 @@ function display(msg){
 function setChoice(ch){
 
     window.choice = ch;
+    window.opponentChoice = ch ^ 1;
     console.log(window.choice)
     if(ch == 1)     display("<p>Player 1 : X <br/> player 2 : O </p>");
 
@@ -55,32 +58,23 @@ function choose(){
 }
 
 
-function updatePlayground(choice, tileID){
+function updatePlayground(ch, tileID){
 
     var tile = document.querySelector("#"+tileID)
             
-    if(choice == 1){
+    if(ch == 1){
         tile.style.backgroundImage = "url('images/tic-tac-toe-x.png')";
         
-    }
-    
-
-    else if(choice == 0){
+    }   else if(ch == 0)    {
         tile.style.backgroundImage = "url('images/tic-tac-toe-o.png')";
     }
 
-    else {
-        display("<p> No tile is chosen<br> Choose one of the tile to continue </p>");
-
-    }
 
 
     tile.style.backgroundSize = "cover";
     tile.style.backgroundPosition = "center center";
 
-    window.conf[tileID.charAt(tileID.length-1)-1] = choice;
-
-    console.log(judge(conf))
+    window.conf[tileID.charAt(tileID.length-1)-1] = ch;
 
 
 }
@@ -90,16 +84,38 @@ function chooseTile(){
 
     document.querySelector(".playground").addEventListener('click', function(e){
 
-        if(e.target.className != 'tiles'){
-            console.log("choose a tile");
-            updatePlayground()
+        // if player clicks on tile without a coin
+        if(choice !== -1){
+            updatePlayground(choice, e.target.id);
+            play();
         }
-            
-
-        console.log(e.target.id);
-        updatePlayground(choice, e.target.id)
         
     }, { once : true});
+
+}
+
+function play(){
+
+    if(judge(conf) === -1){
+
+        console.log(judge(conf));
+        let m = getBestMove(conf);
+        console.log(m);
+
+
+        conf[m] = opponentChoice;
+        console.log(conf)
+
+        updatePlayground(opponentChoice, "tile"+(m+1));
+
+    } else {
+
+        console.log(judge(conf)+" is winner");
+
+
+    }
+
+    return;
 
 }
 
@@ -108,13 +124,13 @@ display("<p> welcome to The game<br> Choose one of the coin to continue </p>");
 
 
         
-function play(){
+function start(){
     
 
 
     choose();
 
-    document.addEventListener('click', function(){
+    document.querySelector(".playground").addEventListener('click', function(){
         chooseTile();
     });
     
@@ -127,6 +143,6 @@ function play(){
 
 }
 
-play()
+start()
 
 
