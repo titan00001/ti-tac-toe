@@ -5,7 +5,7 @@ import {judge} from "./judge.js"
 // console.log(x);
 
 window.choice = -1;
-window.conf = [-1, -1, -1, -1, -1, -1, -1, -1];
+window.conf = [-1, -1, -1, -1, -1, -1, -1, -1, -1];
 
 var comment = document.querySelector(".comment");
 
