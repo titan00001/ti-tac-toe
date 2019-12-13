@@ -3,6 +3,14 @@
                                         //     1   1  -1
                                         //    -1  -1  -1
 
+const w = [[0,1,2],
+[3,4,5],
+[6,7,8],
+[0,3,6],
+[1,4,7],
+[2,5,8],
+[0,4,8],
+[2,4,6]]
 function isComplete(conf){
 
     let i = 0;
@@ -21,33 +29,18 @@ function isComplete(conf){
 
 export function judge(conf){
 
-    let i = 0;
 
-    for(i = 0; i < 9; i = i + 3){
+    for(let i of w){
+        
+        let p = i[0], q = i[1], r = i[2];
 
-        if(conf[i] == conf[i+1] == conf[i+2]){
-            return conf[i];
+        if((conf[p] === conf[q]) && (conf[p] === conf[r]) && (conf[p] !== -1)){
+            return conf[p];
         }
+
     }
 
-    for(i = 0; i < 3; i = i + 1){
-
-        if(conf[i] == conf[i+3] == conf[i+6]){
-            return conf[i];
-        }
-    }
-
-    if(conf[i] == conf[i+4] == conf[i+8]){
-        return conf[i];
-    }
-
-    if(conf[i] == conf[i+2] == conf[i+4]){
-        return conf[i];
-    }
-
-    if(!isComplete(conf))
-        return -1;
-
+    return -1;
 }
 
 export function test(name){
