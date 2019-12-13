@@ -8,8 +8,17 @@
                                         //    -1  -1  -1
 
 
-function getBestMove(conf){
+export function getBestMove(conf){
 
+    let m = 0;
+    do  {
+
+        m = Math.floor(Math.random(1)*9);
+
+    }   while(conf[m] !== -1);
     
-
+    
+    return m;
 }
+
+
