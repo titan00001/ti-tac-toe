@@ -6,6 +6,8 @@ HTML, CSS, Vanilla JS
 
 Need to Work on:
 
-Improving Judge
-Adding opponent
-Add option for Single player
+Improving Judge: done
+Adding opponent: done
+Add option for Single player: done
+Add reset button
+Add score
