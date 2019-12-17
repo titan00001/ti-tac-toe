@@ -2,9 +2,6 @@ import {judge} from "./judge.js";
 import {getBestMove} from "./opponent.js";
 
 
-// var x = test("Sahil")
-// console.log(x);
-
 window.choice = -1;
 window.opponentChoice = -1;
 window.conf = [-1, -1, -1, -1, -1, -1, -1, -1, -1];
@@ -96,23 +93,26 @@ function chooseTile(){
 
 function play(){
 
+    // judge -> opponent -> judge
     if(judge(conf) === -1){
 
-        console.log(judge(conf));
+        
         let m = getBestMove(conf);
-        console.log(m);
-
-
+        
         conf[m] = opponentChoice;
-        console.log(conf)
-
+        
         updatePlayground(opponentChoice, "tile"+(m+1));
+
+        if(judge(conf) !== -1){
+            console.log(judge(conf)+" is winner");
+            return;
+        }
+
 
     } else {
 
         console.log(judge(conf)+" is winner");
-
-
+    
     }
 
     return;
@@ -122,7 +122,10 @@ function play(){
 
 display("<p> welcome to The game<br> Choose one of the coin to continue </p>");
 
+function restart(){
 
+    
+}
         
 function start(){
     
@@ -145,4 +148,12 @@ function start(){
 
 start()
 
+// Single player mode:
+// start -> choose => chooseTile => updatePlayground
+//                          play => judge => opponentMove => updatePlayground => judge - "Won"/"Lost" => STOP
+//                                                                                      chooseTile
 
+// Two player Mode:
+// start => choose => player1.chooseTile => updatePlayground 
+//                              play => judge => player2.chooseTile => updatePlayground => judge - "Won"/"Lost" => STOP
+//                                                                                              player1.chooseTile
