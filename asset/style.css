@@ -91,3 +91,10 @@ h1 {
     color: aliceblue;
     font-size: 25px;
 }
+
+#result {
+
+    display: none;
+    
+
+}
