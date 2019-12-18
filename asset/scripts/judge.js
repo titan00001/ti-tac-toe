@@ -26,7 +26,7 @@ function isComplete(configuration){
 
 }
 
-// -1 = not completed 0 = o won 1 = x won
+// -1 = not completed 0 = o won 1 = x won -2: tie
 
 export function judge(configuration){
 
@@ -41,7 +41,11 @@ export function judge(configuration){
 
     }
 
-    return -1;
+    if(isComplete(configuration) === false){
+        return -1;
+    }
+
+    return -2;
 }
 
 export function test(name){
