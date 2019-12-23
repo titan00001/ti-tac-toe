@@ -2,14 +2,18 @@ import {judge} from "./judge.js";
 import {getBestMove} from "./opponent.js";
 
 
-window.choice = -1;
-window.opponentChoice = -1;
-window.conf = [-1, -1, -1, -1, -1, -1, -1, -1, -1];
+var choice = -1;
+var opponentChoice = -1;
+var conf = [-1, -1, -1, -1, -1, -1, -1, -1, -1];
 var dataSet = [-1, -1, -1, -1, -1, -1, -1, -1, -1,];
 var move = 0;
 
+var player1Score = 0;
+var player2Score = 0;
 
-var comment = document.querySelector(".comment");
+const comment = document.querySelector(".comment");
+
+document.querySelector("#result-Btn").addEventListener('click', restart);
 
 function display(msg){
 
@@ -21,12 +25,12 @@ function display(msg){
 // ||    x = 1     o = 0       ||
 // ||==========================||
 
-
+// player 1 choice
 function setChoice(ch){
 
-    window.choice = ch;
-    window.opponentChoice = ch ^ 1;
-    console.log(window.choice)
+    choice = ch;
+    opponentChoice = ch ^ 1;
+    console.log(choice)
     if(ch == 1)     display("<p>Player 1 : X <br/> player 2 : O </p>");
 
     else if(ch == 0)    display("<p>Player 1 : O <br/> player 2 : X </p>");
@@ -63,19 +67,16 @@ function updatePlayground(ch, tileID){
     var tile = document.querySelector("#"+tileID)
             
     if(ch == 1){
-        tile.style.backgroundImage = "url('images/tic-tac-toe-x.png')";
-        
-    }   else if(ch == 0)    {
-        tile.style.backgroundImage = "url('images/tic-tac-toe-o.png')";
+        tile.className = "x-mark";
+    }
+
+    else if(ch == 0)    {
+        tile.className = "o-mark";
     }
 
 
-
-    tile.style.backgroundSize = "cover";
-    tile.style.backgroundPosition = "center center";
-
-    window.conf[tileID.charAt(tileID.length-1)-1] = ch;
-    dataSet[tileID.charAt(tileID.length-1)-1] = move; move++;
+    conf[tileID.charAt(tileID.length-1)-1] = ch;
+    dataSet[tileID.charAt(tileID.length-1)-1] = ++move;
 
 }
 
@@ -92,7 +93,6 @@ function chooseTile(){
 
                 updatePlayground(choice, e.target.id);
                 play();
-                console.log("choose your tile")
             }
         }
         
@@ -105,61 +105,83 @@ function play(){
     // judge -> opponent -> judge
     if(judge(conf) === -1){
 
-        
         let m = getBestMove(conf);
         
         conf[m] = opponentChoice;
         
         updatePlayground(opponentChoice, "tile"+(m+1));
-        console.log("Judge: "+judge(conf)+"conf: "+conf)
+
         if(judge(conf) === opponentChoice){
-            console.log(judge(conf)+" is winner");
+
+            getResult("Computer Won");
+            setScore(player1Score, ++player2Score);
             console.log(dataSet);
-            restart();
         }
 
 
     } else if(judge(conf) === -2){
 
-        console.log("The Game is tied");
-        console.log(dataSet);
-        restart();
+        getResult("The Game is tied");
     }
 
     else if(judge(conf) === choice){
 
-        console.log(judge(conf)+" is winner");
+        getResult("You Won");
+        setScore(++player1Score, player2Score);  
         console.log(dataSet);
-        restart();
     }
 
 }
 
-
-display("<p> welcome to The game<br> Choose one of the coin to continue </p>");
-
-function restart(){
-
-    document.getElementById("result")
+function restart() {
     
+    let s1 = player1Score;
+    let s2 = player2Score;
+
+    document.querySelector(".playground").querySelectorAll(".x-mark").forEach(function (tile) {
+        tile.className = "tiles";
+    });
+    document.querySelector(".playground").querySelectorAll(".o-mark").forEach(function (tile) {
+        tile.className = "tiles";
+    });
+
+    start()
+
+    setScore(s1,s2);
+
+}
+
+function setScore(scoreP1, scoreP2) {
+    document.querySelector("#ptsPlayer1").innerHTML = scoreP1;
+    document.querySelector("#ptsPlayer2").innerHTML = scoreP2;
+}
+
+function getResult(msg){
+
+    document.getElementById("result").style.display = "block";
+    document.getElementById("result-dialog").innerText = msg;
+
 }
         
 function start(){
     
 
+    setScore(player1Score, player2Score);
+    document.getElementById("result").style.display = "none";
+
+    display("<p> welcome to The game<br> Choose one of the coin to continue </p>");
+
+    choice = -1;
+    opponentChoice = -1;
+    conf = [-1, -1, -1, -1, -1, -1, -1, -1, -1];
+    dataSet = [-1, -1, -1, -1, -1, -1, -1, -1, -1,];
+    move = 0;
 
     choose();
 
     document.querySelector(".playground").addEventListener('click', function(){
         chooseTile();
     });
-    
-    
-
-    // var list = [0, 0, 1, 0, 1, 1, 0, 1, 0];
-    // console.log(judge(list));
-
-    
 
 }
 
