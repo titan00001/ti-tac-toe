@@ -12,6 +12,12 @@ app.get('/', function(req, res) {
     res.sendFile("./asset/index.html");
 })
 
+export function reset() {
+    app.get('/', function(req, res) {
+        res.sendFile("./asset/index.html");
+    })
+}
+
 app.listen(PORT, function(){
-    console.log("Server running on port 3000");
+    console.log("Server running on port "+PORT);
 })
