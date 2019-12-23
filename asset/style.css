@@ -1,8 +1,10 @@
 body {
     background-color: #D8AE71;
-    border: 0;
+    border: 2px solid black;
     margin: 0;
-    padding: 0;
+    padding: 5% 5% 10%;
+    height: min-content;
+
 }
 
 h1 {
@@ -20,7 +22,6 @@ h1 {
 
 .playground {
 
-    /* background-image: url("images/tic-tac-toe-bg.png");    */
     padding-left: 10%;
     height: 460px; 
     width: 460px;
@@ -53,6 +54,30 @@ h1 {
     text-align: center;
 }
 
+#score-container {
+
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 20px;
+    justify-items: center;
+}
+
+
+#score-container > div {
+
+    height: 150px;
+    width: 150px;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.pts {
+    text-align: center;
+    padding: auto;
+    font-size: 40px;
+}
+
 .choose {
 
     grid-column: 2;
@@ -61,6 +86,7 @@ h1 {
 
     display: grid;
     grid-template-columns: auto auto;
+    gap: 20px;
     align-items: center;
     justify-items: center;
 }
@@ -74,7 +100,6 @@ h1 {
     background-position: center center;
 }
 
-/* overrides .x-mark */
 .x-mark {
 
     background-image: url("images/tic-tac-toe-x.png");
@@ -84,12 +109,14 @@ h1 {
     background-position: center center;
 }
 
+
 .comment {
 
     background-color: #453823;
     height: 100px;
     color: aliceblue;
     font-size: 25px;
+    text-align: center;
 }
 
 #result {
@@ -98,6 +125,32 @@ h1 {
     height: 100%;
     width: 100%;
     position: fixed;
-    
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background-color: rgba(191, 191, 191, 0.3);
+}
 
+
+#result-dialog {
+
+    position: absolute;
+    top: 30vh;
+    left: 49.5vw;
+    font-size: 50px;
+    color: rgba(0, 0, 0, .7);
+    padding: 20px;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+}
+
+
+#result button {
+    position: absolute;
+    height: 40px;
+    width: 100px;
+    top: 50vh;
+    left: 47vw;
 }
